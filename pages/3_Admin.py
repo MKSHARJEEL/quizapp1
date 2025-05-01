@@ -1,14 +1,15 @@
 import streamlit as st
-from db import get_all_users, get_all_quizzes
+from db import get_admin, get_all_users, get_all_quizzes
 
-st.title("Admin Dashboard")
+st.title("Admin Login")
 
-admin_user = st.text_input("Admin Username")
-admin_pass = st.text_input("Admin Password", type="password")
+username = st.text_input("Admin Username")
+password = st.text_input("Admin Password", type="password")
 
 if st.button("Login as Admin"):
-    if admin_user == "admin" and admin_pass == "adminpass":  # improve this later!
-        st.success("Admin logged in.")
+    admin = get_admin(username, password)
+    if admin:
+        st.success("Admin logged in successfully!")
 
         st.subheader("All Users")
         users = get_all_users()
