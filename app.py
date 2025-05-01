@@ -6,7 +6,6 @@ from db_utils import init_db, insert_quiz
 init_db()
 st.set_page_config(page_title="AI Quiz App", page_icon="🤖")
 
-# Load API key
 api_key = st.secrets.get("LANGCHAIN_API_KEY")
 os.environ["LANGCHAIN_API_KEY"] = api_key or ""
 
@@ -17,7 +16,6 @@ if "user_id" not in st.session_state:
 else:
     st.success(f"Logged in as: {st.session_state['username']}")
 
-    # Example quiz question
     question = "What is 2 + 2?"
     answer = st.text_input("Question: " + question)
 

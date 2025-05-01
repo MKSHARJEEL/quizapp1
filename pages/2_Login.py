@@ -11,6 +11,6 @@ if st.button("Login"):
     if user:
         st.session_state["user_id"] = user[0]
         st.session_state["username"] = user[1]
-        st.success("Login successful! Go to the Home page.")
+        st.success("Login successful! Go to Home page.")
     else:
         st.error("Invalid credentials.")

@@ -14,6 +14,13 @@ def init_db():
         )
     ''')
     c.execute('''
+        CREATE TABLE IF NOT EXISTS admins (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            username TEXT UNIQUE,
+            password TEXT
+        )
+    ''')
+    c.execute('''
         CREATE TABLE IF NOT EXISTS quizzes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_id INTEGER,
@@ -21,13 +28,6 @@ def init_db():
             score INTEGER,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
             FOREIGN KEY(user_id) REFERENCES users(id)
-        )
-    ''')
-    c.execute('''
-        CREATE TABLE IF NOT EXISTS admins (
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            username TEXT UNIQUE,
-            password TEXT
         )
     ''')
     conn.commit()
@@ -47,6 +47,21 @@ def get_user(username, password):
     user = c.fetchone()
     conn.close()
     return user
+
+def insert_admin(username, password):
+    conn = sqlite3.connect(DB_NAME)
+    c = conn.cursor()
+    c.execute('INSERT INTO admins (username, password) VALUES (?, ?)', (username, password))
+    conn.commit()
+    conn.close()
+
+def get_admin(username, password):
+    conn = sqlite3.connect(DB_NAME)
+    c = conn.cursor()
+    c.execute('SELECT * FROM admins WHERE username = ? AND password = ?', (username, password))
+    admin = c.fetchone()
+    conn.close()
+    return admin
 
 def insert_quiz(user_id, quiz_data, score):
     conn = sqlite3.connect(DB_NAME)
@@ -70,18 +85,3 @@ def get_all_quizzes():
     quizzes = c.fetchall()
     conn.close()
     return quizzes
-
-def insert_admin(username, password):
-    conn = sqlite3.connect(DB_NAME)
-    c = conn.cursor()
-    c.execute('INSERT INTO admins (username, password) VALUES (?, ?)', (username, password))
-    conn.commit()
-    conn.close()
-
-def get_admin(username, password):
-    conn = sqlite3.connect(DB_NAME)
-    c = conn.cursor()
-    c.execute('SELECT * FROM admins WHERE username = ? AND password = ?', (username, password))
-    admin = c.fetchone()
-    conn.close()
-    return admin
