@@ -80,7 +80,6 @@ def display_quiz_questions():
                 st.write(f"Explanation: {q['explanation']}")
                 st.write("---")
             
-            # Save to DB
             if "user_id" in st.session_state:
                 insert_quiz(st.session_state["user_id"], json.dumps(st.session_state.questions), score)
             

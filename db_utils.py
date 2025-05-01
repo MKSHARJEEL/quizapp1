@@ -5,6 +5,7 @@ DB_NAME = 'quizapp.db'
 def init_db():
     conn = sqlite3.connect(DB_NAME)
     c = conn.cursor()
+    # Users table
     c.execute('''
         CREATE TABLE IF NOT EXISTS users (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -13,6 +14,7 @@ def init_db():
             email TEXT
         )
     ''')
+    # Admins table
     c.execute('''
         CREATE TABLE IF NOT EXISTS admins (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,6 +22,7 @@ def init_db():
             password TEXT
         )
     ''')
+    # Quizzes table
     c.execute('''
         CREATE TABLE IF NOT EXISTS quizzes (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
