@@ -1,5 +1,5 @@
 import streamlit as st
-from db import get_admin, get_all_users, get_all_quizzes
+from db_utils import get_admin, get_all_users, get_all_quizzes
 
 st.title("Admin Login")
 

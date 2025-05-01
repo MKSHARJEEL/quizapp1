@@ -1,5 +1,5 @@
 import streamlit as st
-from db import insert_admin
+from db_utils import insert_admin
 
 st.title("Admin Registration")
 
